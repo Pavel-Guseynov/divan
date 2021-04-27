@@ -3,7 +3,7 @@ a-scene embedded="true" xr="arAutostart: false" background="color: black"
     - @album.images.each do |image|
       img id="image-#{image.id}" class="album-images" src="#{file_image_path(image)}" crossorigin="anonymous" height="#{image.height}" width="#{image.width}"
 
-  a-plane id="current-image-plane" position="0 2 -1000" rotation="0 0"
+  a-image id="current-image-plane" position="0 2 -1000" rotation="0 0"
 
   a-entity oculus-touch-controls="hand: left" button-listener
   a-entity oculus-touch-controls="hand: right" button-listener
@@ -19,7 +19,7 @@ javascript:
   var zoom = -1000
 
   function update_current(image) {
-      current_image_plane.setAttribute('material', 'src: #' + image.id);
+      current_image_plane.setAttribute('src', '#' + image.id);
       current_image_plane.setAttribute('height', image.height);
       current_image_plane.setAttribute('width', image.width);
   }
