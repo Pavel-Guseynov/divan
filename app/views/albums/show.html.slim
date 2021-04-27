@@ -16,11 +16,17 @@ javascript:
   var current_image_plane = document.querySelector('#current-image-plane');
   var images = document.querySelectorAll('.album-images');
   var current_image = -1
+  var zoom = -1000
 
   function update_current(image) {
       current_image_plane.setAttribute('material', 'src: #' + image.id);
       current_image_plane.setAttribute('height', image.height);
       current_image_plane.setAttribute('width', image.width);
+  }
+
+  function change_zoom(val) {
+      zoom += val
+      current_image_plane.setAttribute('position', '0 2 ' + zoom);
   }
 
   function next_image() {
@@ -43,3 +49,7 @@ javascript:
 
   document.addEventListener('triggerdown', function (evt) { next_image() });
   document.addEventListener('gripdown', function (evt) { prev_image() });
+  document.addEventListener('abuttondown', function (evt) { change_zoom(100) });
+  document.addEventListener('bbuttondown', function (evt) { change_zoom(-100) });
+
+

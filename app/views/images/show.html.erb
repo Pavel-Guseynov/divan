@@ -1,0 +1,6 @@
+<a-scene embedded xr="arAutostart: false" background="color: black">
+  <a-plane id="current-image" position="0 2 -1000" rotation="0 0" height="<%= @image.height %>" width="<%= @image.width %>" src="<%= file_image_path(@image) %>"></a-plane>
+
+  <a-entity oculus-touch-controls="hand: left" thumbstick-control></a-entity>
+  <a-entity oculus-touch-controls="hand: right" thumbstick-control></a-entity>
+</a-scene>
