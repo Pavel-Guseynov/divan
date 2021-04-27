@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  root "albums#index"
+  root 'albums#index'
 
   resources :albums
   resources :images do

@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 class ImagesController < ApplicationController
   before_action :set_image, except: :index
 
   def index
-    @images  = Image.all
+    @images = Image.all
   end
 
-  def show
-
-  end
+  def show; end
 
   def file
     send_file @image.path
