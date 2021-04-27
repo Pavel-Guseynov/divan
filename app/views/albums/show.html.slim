@@ -1,0 +1,45 @@
+a-scene embedded="true" xr="arAutostart: false" background="color: black"
+  a-assets
+    - @album.images.each do |image|
+      img id="image-#{image.id}" class="album-images" src="#{file_image_path(image)}" crossorigin="anonymous" height="#{image.height}" width="#{image.width}"
+
+  a-plane id="current-image-plane" position="0 2 -1000" rotation="0 0"
+
+  a-entity oculus-touch-controls="hand: left" button-listener
+  a-entity oculus-touch-controls="hand: right" button-listener
+
+
+= link_to 'Edit', edit_album_path(@album)
+= link_to 'Back', albums_path
+
+javascript:
+  var current_image_plane = document.querySelector('#current-image-plane');
+  var images = document.querySelectorAll('.album-images');
+  var current_image = -1
+
+  function update_current(image) {
+      current_image_plane.setAttribute('material', 'src: #' + image.id);
+      current_image_plane.setAttribute('height', image.height);
+      current_image_plane.setAttribute('width', image.width);
+  }
+
+  function next_image() {
+      if (current_image === images.length) {
+          return
+      }
+      current_image += 1
+      update_current(images[current_image])
+  }
+
+  function prev_image() {
+      if (current_image === 0) {
+          return
+      }
+      current_image -= 1
+      update_current(images[current_image])
+  }
+
+  next_image()
+
+  document.addEventListener('triggerdown', function (evt) { next_image() });
+  document.addEventListener('gripdown', function (evt) { prev_image() });
