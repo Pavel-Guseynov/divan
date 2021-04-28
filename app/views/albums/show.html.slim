@@ -3,7 +3,9 @@ a-scene embedded="true" xr="arAutostart: false" background="color: #000000" webx
     - @album.images.each do |image|
       img id="image-#{image.id}" class="album-images" src="#{file_image_path(image)}" crossorigin="anonymous" height="#{image.height}" width="#{image.width}"
 
-  a-image id="current-image-plane" position="0 0 -2" material="depthTest:  false;  depthWrite:  false; dithering:  false;  fog:  false, side: front;"
+  a-image id="current-image-plane" position="0 0 -1" material="depthTest: false; depthWrite: false; dithering: false; fog: false; side: front; flatShading: true; npot: true;"
+
+  a-camera position="0 0 0"
 
   a-entity oculus-touch-controls="hand: left"
   a-entity oculus-touch-controls="hand: right"
@@ -15,10 +17,10 @@ javascript:
   var current_image_plane = document.querySelector('#current-image-plane');
   var images = document.querySelectorAll('.album-images');
   var current_image = -1
-  var zoom = -2
+  var zoom = -1
 
   function update_current(image) {
-      var width = 2
+      var width = 1
       var height = width/(image.width/image.height)
 
       current_image_plane.setAttribute('src', '#' + image.id);
