@@ -1,9 +1,9 @@
-a-scene embedded="true" xr="arAutostart: false" background="color: #000000" webxr="referenceSpaceType: viewer;"
+a-scene embedded="true" xr="arAutostart: false" background="color: #000000" webxr="referenceSpaceType: viewer;" renderer="antialias: true; colorManagement: true;"
   a-assets
     - @album.images.each do |image|
       img id="image-#{image.id}" class="album-images" src="#{file_image_path(image)}" crossorigin="anonymous" height="#{image.height}" width="#{image.width}"
 
-  a-image id="current-image-plane" position="0 0 -1" material="depthTest: false; depthWrite: false; dithering: false; fog: false; side: front; flatShading: true; npot: true;"
+  a-image id="current-image-plane" position="0 0 -1" material="depthTest: false; depthWrite: false; dithering: true; fog: false; side: front; flatShading: true; npot: true;"
 
   a-camera position="0 0 0"
 
@@ -26,8 +26,8 @@ javascript:
       current_image_plane.setAttribute('src', '#' + image.id);
       current_image_plane.setAttribute('height', height);
       current_image_plane.setAttribute('width', width);
-      current_image_plane.setAttribute('material', 'width', width);
-      current_image_plane.setAttribute('material', 'height', height);
+      current_image_plane.setAttribute('material', 'width', image.width);
+      current_image_plane.setAttribute('material', 'height', image.height);
   }
 
   function change_zoom(val) {
