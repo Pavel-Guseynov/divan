@@ -6,7 +6,7 @@ class Image < ApplicationRecord
   def self.import(dir, album)
     Dir.chdir dir
     Dir['*.{png,jpg,jpeg}'].each do |filename|
-      image = find_or_initialize_by path: filename, album: album
+      image = find_or_initialize_by path: "#{dir}#{filename}", album: album
 
       magick = MiniMagick::Image.new(filename)
 
