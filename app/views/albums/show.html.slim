@@ -1,7 +1,9 @@
+#images-data
+  - @album.images.each do |image|
+    .image-data data-id="#{image.id}" data-src="#{file_image_path(image)}" data-height="#{image.height}" data-width="#{image.width}"
+
 a-scene embedded="true" xr="arAutostart: false" background="color: #000000" webxr="referenceSpaceType: viewer;" renderer="antialias: true; colorManagement: true;" light="defaultLightsEnabled: false"
   a-assets
-    - @album.images.each do |image|
-      img id="image-#{image.id}" class="album-images" src="#{file_image_path(image)}" crossorigin="anonymous" height="#{image.height}" width="#{image.width}"
 
   a-image id="current-image-plane" position="0 0 -1" material="depthTest: false; depthWrite: false; dithering: true; fog: false; side: front; flatShading: true; npot: true; color: #efe2e2; transparent: false;"
 
@@ -9,50 +11,6 @@ a-scene embedded="true" xr="arAutostart: false" background="color: #000000" webx
 
   a-entity oculus-touch-controls="hand: left"
   a-entity oculus-touch-controls="hand: right"
+
 = link_to 'Edit', edit_album_path(@album)
 = link_to 'Back', albums_path
-
-javascript:
-  var current_image_plane = document.querySelector('#current-image-plane');
-  var images = document.querySelectorAll('.album-images');
-  var current_image = -1
-  var zoom = -1
-
-  function update_current(image) {
-      var width = 1
-      var height = width/(image.width/image.height)
-
-      current_image_plane.setAttribute('src', '#' + image.id);
-      current_image_plane.setAttribute('height', height);
-      current_image_plane.setAttribute('width', width);
-      current_image_plane.setAttribute('material', 'width', image.width);
-      current_image_plane.setAttribute('material', 'height', image.height);
-  }
-
-  function change_zoom(val) {
-      zoom += val
-      current_image_plane.object3D.position.set(0, 0, zoom);
-  }
-
-  function next_image() {
-      if (current_image === images.length) {
-          return
-      }
-      current_image += 1
-      update_current(images[current_image])
-  }
-
-  function prev_image() {
-      if (current_image === 0) {
-          return
-      }
-      current_image -= 1
-      update_current(images[current_image])
-  }
-
-  next_image()
-
-  document.addEventListener('triggerdown', function (evt) { next_image() });
-  document.addEventListener('gripdown', function (evt) { prev_image() });
-  document.addEventListener('abuttondown', function (evt) { change_zoom(0.01) });
-  document.addEventListener('bbuttondown', function (evt) { change_zoom(-0.01) });

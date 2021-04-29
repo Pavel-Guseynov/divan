@@ -10,3 +10,5 @@ Rails.start()
 Turbolinks.start()
 
 require('aframe')
+
+import "../src/album"
