@@ -8,6 +8,8 @@ class Image < ApplicationRecord
     Dir['*.{png,jpg,jpeg}'].each do |filename|
       image = find_or_initialize_by path: "#{dir}#{filename}", album: album
 
+      next if image.persisted?
+
       magick = MiniMagick::Image.new(filename)
 
       image.height = magick.height
